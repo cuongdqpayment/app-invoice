@@ -1,0 +1,44 @@
+page-signature {
+    
+    canvas {
+        display: block;
+        border: 1px solid rgb(187,178,178);
+
+    }
+
+    .background-page {
+        background-color: #2d96de;
+        text-align: center;
+    }
+    
+    .draw-background {
+        position: absolute;
+        top: 10px;
+    }
+
+    .draw-area{
+        background-color: white;
+        height: 100%;
+        width: 100%;
+        display: block;
+    }
+
+
+    .badge-background {
+        position: relative;
+        text-align: left;
+    }
+
+    .badge-background .badge-alert {
+            position: absolute;
+            left: 30%;
+            top: 20%;
+            padding: 0;
+            margin: 0;
+            font-size: 0.6em;
+            height: 30%;
+            width: 70%;
+            color: #fff;
+    }
+
+}

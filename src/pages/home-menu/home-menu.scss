@@ -1,0 +1,108 @@
+page-home-menu {
+
+	.padding-col{
+		padding: 2px;
+	}
+
+	.one-image{
+		margin: 2px;
+	}
+
+	.background-page {
+		background-color: #2d96de;
+	}
+
+	.gradient {
+    background-image: url("https://c3.mobifone.vn/api/assets/imgs/gradient.png");
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-position: center;
+    }
+
+	.card-background-parent {
+			position: relative;
+			text-align: left;
+	}
+	
+	.card-background-parent .background-height{
+		background-size: cover;
+		background-position: center; 
+		min-height: 308px;
+	}
+
+	.card-background-parent .background-item {
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			font-size: 1.3em;
+			width: 94%;
+			height: 100px;
+			color: black;
+			opacity: 0.8;
+	}
+
+	.card-background-page {
+		position: relative;
+		text-align: center;
+	}
+
+	.card-background-page .card-title {
+		position: absolute;
+		top: 80%;
+		left: 30%;
+		font-size: 1.3em;
+		width: 100%;
+		font-weight: bold;
+		color: #fff;
+	}
+
+	.card-background-page .card-more {
+		position: absolute;
+		top: 36%;
+		font-size: 1.5em;
+		width: 100%;
+		font-weight: bold;
+		color: #fff;
+	}
+
+	.card-background-page .card-subtitle {
+		position: absolute;
+		top: 90%;
+		left: 30%;
+		font-size: 0.8em;
+		width: 100%;
+		color: #fff;
+	}
+
+
+	.card-background-page .image-height-1{
+		background-size: cover;
+		background-position: center; 
+		min-height: 300px;
+	}
+
+	.card-background-page .image-height-2{
+		background-size: cover;
+		background-position: center; 
+		min-height: 200px;
+	}
+
+	.card-background-page .image-height-3{
+		background-size: cover;
+		background-position: center; 
+		min-height: 100px;
+	}
+
+	.card-background-page .image-height-4{
+		background-size: cover;
+		background-position: center; 
+		min-height: 150px;
+	}
+
+	.card-background-page .image-height-5{
+		background-size: cover;
+		background-position: center; 
+		min-height: 100px;
+	}
+
+}

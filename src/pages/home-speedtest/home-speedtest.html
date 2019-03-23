@@ -1,0 +1,32 @@
+<ion-content no-padding class="background-page gradient">
+    <ion-grid>
+        <ion-row>
+            <ion-col class="background-card gradient grid-border" text-center col-12 offset-xl-3 col-xl-6 offset-lg-3
+                col-lg-6 offset-md-2 col-md-8 col-sm-12>
+                <ion-item class="background-card">
+                    <ion-label class="title-item">{{app?.name}}</ion-label>
+                </ion-item>
+
+                <ion-grid *ngIf="app?.image">
+                    <ion-row>
+                        <ion-col style="text-align: center;">
+                            <img [src]="app.image">
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+                <ion-list class="input-item" *ngIf="app?.device_details">
+                    <ion-item *ngFor="let dt of app?.device_details">
+                        <strong item-start>
+                            {{dt.name}}
+                        </strong>
+                        <ion-label text-wrap item-end>
+                            {{dt.value}}
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

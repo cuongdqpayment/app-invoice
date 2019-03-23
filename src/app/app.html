@@ -1,0 +1,40 @@
+<ion-split-pane>
+    <ion-menu [content]="content">
+        <ion-header>
+            <ion-toolbar>
+
+                <ion-row *ngIf="userInfo">
+                    <ion-col no-padding class="padding-col card-background-header" col-12>
+                        <div *ngIf="userInfo?.data?.background" class="background-image-header" [style.background-image]="'url('+userInfo?.data?.background+')'" tappable (click)="onClickUserImage('background')"></div>
+                        <ion-label class="card-title-header" tappable (click)="onClickUser()">{{userInfo?.data?.fullname?userInfo?.data?.fullname:userInfo?.data?.username}}{{userInfo?.data?.nickname?"\n("+userInfo?.data?.nickname+")":""}}</ion-label>
+                        <div *ngIf="userInfo?.data?.image" class="avatar-header" [style.background-image]="'url('+userInfo?.data?.image+')'" tappable (click)="onClickUserImage('avatar')"></div>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row *ngIf="!userInfo">
+                    <ion-col no-padding class="padding-col card-background-header background-image-header" col-12>
+                        <ion-title start>Login...</ion-title>
+                        <ion-buttons end *ngIf="!userInfo">
+                            <button class="badge-background" ion-button icon-only color="primary" (click)="onClickLogin()">
+                                <ion-icon name="log-in"></ion-icon>
+                            </button>
+                        </ion-buttons>
+                    </ion-col>
+                </ion-row>
+
+            </ion-toolbar>
+        </ion-header>
+
+        <ion-content>
+            <ion-grid>
+                <ion-row>
+                    <ion-col class="background-card gradient grid-border">
+                        <tree-view [treeData]="treeMenu" [callback]="callbackTreeMenu"></tree-view>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-content>
+        
+    </ion-menu>
+    <ion-nav [root]="rootPage" #content main swipeBackEnabled="false"></ion-nav>
+</ion-split-pane>

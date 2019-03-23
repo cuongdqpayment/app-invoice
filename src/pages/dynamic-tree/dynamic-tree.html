@@ -1,0 +1,25 @@
+<ion-header *ngIf="dynamicTree.title">
+	<ion-navbar>
+		<ion-title>{{dynamicTree.title}}</ion-title>
+		<ion-buttons end *ngFor="let btn of dynamicTree.buttons">
+			<button class="badge-background" ion-button icon-only color="{{btn.color}}" (click)="onClickHeader(btn)">
+				<ion-icon name="{{btn.icon}}"></ion-icon>
+				<ion-badge class="badge-alert" color="danger" *ngIf="btn.alerts">{{ (btn.alerts?.length>99?'99+':btn.alerts?.length) }}</ion-badge>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content no-padding class="background-page gradient">
+
+	<ion-grid>
+		<ion-row>
+			<ion-col class="background-card gradient grid-border" text-center col-12 offset-xl-3 col-xl-6 offset-lg-3
+				col-lg-6 offset-md-2 col-md-8 col-sm-12>
+
+				<tree-view [treeData]="dynamicTree.items" [callback]="callbackTreeView"></tree-view>
+
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>

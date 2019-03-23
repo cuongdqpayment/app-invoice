@@ -1,0 +1,119 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title start>{{Results}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only color="dark" class="badge-background" (click)="onClickResetResults()">
+                <ion-icon name="trash"></ion-icon>
+                <ion-badge class="badge-alert" color="danger" *ngIf="alerts">
+                    {{ (alerts?.length>99?'99+':alerts?.length) }}</ion-badge>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding class="background-page gradient">
+    <ion-grid>
+        <ion-row>
+            <ion-col class="background-card gradient grid-border" text-center col-12 offset-xl-3 col-xl-6 offset-lg-3
+                col-lg-6 offset-md-2 col-md-8 col-sm-12 *ngIf="!dynamicList?.is_table">
+                <ion-list class="background-list table-row">
+
+                    <ion-item-group [reorder]="editing" (ionItemReorder)="reorderData($event)">
+                        <ion-item class="background-item" *ngFor="let it of results; let idx = index">
+                            <ion-icon item-start *ngIf="it.icon" name="{{it.icon}}" color="{{it.color}}"></ion-icon>
+                            <ion-avatar item-start *ngIf="it.image">
+                                <img [src]="it.image">
+                            </ion-avatar>
+
+                            <ion-title *ngIf="it.server">{{it.server?.name}}</ion-title>
+                            <strong *ngIf="it.ip">IP: {{it.ip}}</strong>
+                            <p *ngIf="it.device?.ip_info" text-wrap style="text-align: justify;">
+                                {{it.device?.ip_info?.hostname}}, {{it.device?.ip_info?.city}},
+                                {{it.device?.ip_info?.region}}, {{it.device?.ip_info?.country}},
+                                {{it.device?.ip_info?.org}}</p>
+                            <h3 *ngIf="it.download">DL: {{it.download}} Mbps</h3>
+                            <h3 *ngIf="it.upload">UL: {{it.upload}} Mbps</h3>
+                            <h3 *ngIf="it.ping">Ping: {{it.ping}} ms</h3>
+                            <p *ngIf="it.jitter">Jitter: {{it.jitter}}</p>
+                            <ion-note item-end *ngIf="it.start_local_time">{{it.time}}<br>{{it.date}}</ion-note>
+
+                        </ion-item>
+                    </ion-item-group>
+                </ion-list>
+            </ion-col>
+
+            <ion-col class="background-card gradient grid-border table-row" col-12 offset-xl-1 col-xl-10 col-lg-12
+                col-md-12 col-sm-12 *ngIf="dynamicList?.is_table">
+
+                <ion-grid>
+                    <ion-row text-center class="table-header" *ngIf="dynamicList?.header">
+                        <ion-col>
+                            <div *ngIf="dynamicList?.header?.title">{{dynamicList?.header?.title}}</div>
+                        </ion-col>
+                        <ion-col>
+                            <strong *ngIf="dynamicList?.header?.strong">{{dynamicList?.header?.strong}}</strong>
+                        </ion-col>
+                        <ion-col>
+                            <div *ngIf="dynamicList?.header?.p">{{dynamicList?.header?.p}}</div>
+                        </ion-col>
+                        <ion-col>
+                            <div *ngIf="dynamicList?.header?.span">{{dynamicList?.header?.span}}</div>
+                        </ion-col>
+                        <ion-col>
+                            <div *ngIf="dynamicList?.header?.label">{{dynamicList?.header?.label}}</div>
+                        </ion-col>
+                        <ion-col>
+                            <div *ngIf="dynamicList?.header?.note">{{dynamicList?.header?.note}}</div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="background-item row-content" *ngFor="let it of results; let idx = index">
+                        <ion-col text-center>
+                            {{idx+1}} •
+                            <div *ngIf="it.start_local_time">{{it.start_local_time}}</div>
+                        </ion-col>
+                        <ion-col>
+                            <div *ngIf="it.server">{{it.server?.name}}</div>
+                            <strong *ngIf="it.ip">{{it.ip}}</strong>
+                            <div *ngIf="it.device?.ip_info" text-wrap style="text-align: justify;">
+                                {{it.device?.ip_info?.hostname}}, {{it.device?.ip_info?.city}},
+                                {{it.device?.ip_info?.region}}, {{it.device?.ip_info?.country}},
+                                {{it.device?.ip_info?.org}}</div>
+                        </ion-col>
+                        <ion-col text-center>
+                            <div *ngIf="it.download">{{it.download}}</div>
+                        </ion-col>
+                        <ion-col text-center>
+                            <div *ngIf="it.upload">{{it.upload}}</div>
+                        </ion-col>
+                        <ion-col text-center>
+                            <div *ngIf="it.ping">{{it.ping}}</div>
+                        </ion-col>
+                        <ion-col text-center>
+                            <div *ngIf="it.jitter">{{it.jitter}}</div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row text-center class="table-header" *ngIf="dynamicList?.footer">
+                        <ion-col>
+                            <div *ngIf="dynamicList?.footer?.title">{{dynamicList?.footer?.title}}</div>
+                        </ion-col>
+                        <ion-col>
+                            <strong *ngIf="dynamicList?.footer?.strong">{{dynamicList?.footer?.strong}}</strong>
+                        </ion-col>
+                        <ion-col>
+                            <div *ngIf="dynamicList?.footer?.p">{{dynamicList?.footer?.p}}</div>
+                        </ion-col>
+                        <ion-col>
+                            <div *ngIf="dynamicList?.footer?.span">{{dynamicList?.footer?.span}}</div>
+                        </ion-col>
+                        <ion-col>
+                            <div *ngIf="dynamicList?.footer?.label">{{dynamicList?.footer?.label}}</div>
+                        </ion-col>
+                        <ion-col>
+                            <div *ngIf="dynamicList?.footer?.note">{{dynamicList?.footer?.note}}</div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

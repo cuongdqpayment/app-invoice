@@ -1,0 +1,16 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{linkOrigin}}</ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="onClickClose()">
+                <ion-icon name="close"></ion-icon>
+            </button>
+        </ion-buttons>
+
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <!-- <div [innerHtml]="linkOrigin | safe: 'resourceUrl'"></div> -->
+    <iframe style="min-height:400px;"  width=100% height=100% [attr.src]="this.link" frameborder="1" allowfullscreen sandbox="allow-same-origin allow-scripts"></iframe>
+</ion-content>

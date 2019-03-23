@@ -1,0 +1,14 @@
+{
+    "items": [
+      { "name": "PHÁT HÀNH HÓA ĐƠN","type": "title"}
+      , { "key":"bill_cycle", "name": "Tháng phát hành", "hint": "Lựa chọn tháng", "type": "datetime", "display":"MM/YYYY", "picker":"MM/YYYY", "validators": [{ "required": true}]}
+      , { "key":"bill_date", "name": "Chọn ngày phát hành", "hint": "Lựa chọn ngày", "type": "datetime", "display":"DD/MM/YYYY", "picker":"DD/MM/YYYY", "validators": [{ "required": true}]}
+      , { "key":"invoice_no","name": "Số hóa đơn bắt đầu","hint": "Vui lòng nhập chỉ số hóa đơn bắt đầu", "type": "text","input_type": "text","icon": "list-box", "validators": [{ "required": true, "min": 1, "max": 12, "pattern": "^[0-9]*$" }]}
+      , {
+        "type": "button"
+        ,"options": [
+          {  "name": "Bỏ qua", "next": "CLOSE"}
+          , { "name": "Phát hành", "next": "CALLBACK"}
+        ]
+      }]
+}

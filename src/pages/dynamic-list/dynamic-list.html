@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-navbar>
+
+        <ion-buttons *ngIf="!isSearch && dynamicList?.search_bar" start>
+            <button ion-button icon-only color="royal" (click)="goSearch()">
+                <ion-icon name="search"></ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-buttons end *ngFor="let btn of dynamicList?.buttons">
+            <button ion-button icon-only color="{{btn.color}}" (click)="onClick(btn)">
+                <ion-icon name="{{btn.icon}}"></ion-icon>
+            </button>
+        </ion-buttons>
+
+        <ion-searchbar *ngIf="isSearch && dynamicList?.search_bar" placeholder="{{dynamicList?.search_bar.hint}}"
+            [(ngModel)]="searchString" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" (keyup.enter)="searchEnter()"
+            (keyup.esc)="searchEnter()" start>
+        </ion-searchbar>
+
+        <ion-title *ngIf="!isSearch">{{dynamicList?.title}}</ion-title>
+
+    </ion-navbar>
+</ion-header>
+
+<ion-content no-padding class="background-page gradient">
+    <ion-grid>
+        <ion-row>
+            <ion-col class="background-card gradient grid-border" text-center col-12 offset-xl-3 col-xl-6 offset-lg-3
+                col-lg-6 offset-md-2 col-md-8 col-sm-12>
+
+                <ion-list>
+
+                    <ion-item-sliding #slidingItem class="background-list" *ngFor="let it of dynamicList?.items">
+                        <ion-item #item class="background-item">
+                            <ion-icon item-start *ngIf="!isMobile&&it.icon" name="{{it.icon}}" color="{{it.color}}"></ion-icon>
+                            <ion-avatar item-start *ngIf="!isMobile&&it.image">
+                                <img [src]="it.image">
+                            </ion-avatar>
+
+                            <h1 *ngIf="it.h1">{{it.h1}}</h1>
+                            <h2 *ngIf="it.h2">{{it.h2}}</h2>
+                            <p text-wrap style="text-align: justify;" *ngIf="it.p">{{it.p}}</p>
+                            <ion-note text-wrap style="text-align: justify;" item-end *ngIf="it.note">{{it.note}}</ion-note>
+
+                            <button item-end *ngIf="!it.isSlidingItemOpen
+                                        &&!isMobile
+                                        &&it.options
+                                        &&it.options.length>0
+                                        &&it.options.length<=3"
+                                ion-button icon-only round color="secondary" (click)="openSwipeOptions(slidingItem, item, it)">
+                                <ion-icon name="arrow-dropleft-circle"></ion-icon>
+                            </button>
+
+                        </ion-item>
+
+                        <ion-item-options>
+                            <button ion-button *ngFor="let opt of it.options" color="{{opt.color}}" (click)="onClickDetails(slidingItem, opt, it)">
+                                <ion-icon name="{{opt.icon}}"></ion-icon>
+                                {{opt.name}}
+                            </button>
+                        </ion-item-options>
+
+                    </ion-item-sliding>
+
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

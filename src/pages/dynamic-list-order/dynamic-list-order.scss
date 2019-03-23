@@ -1,0 +1,76 @@
+page-dynamic-list-order {
+
+	.background-page {
+		background-color: #2d96de;
+	}
+
+	.background-card {
+		background-color: #e9dbdb;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+	}
+
+	
+	.background-card ion-icon{
+		color: #2d96de;
+	}
+	
+	.background-list {
+		background-color: #e9dbdb;
+	}
+
+	.background-item {
+		background-color: #f3f3f3;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+		border-radius: 0.8em;
+	}
+
+	.gradient {
+    	background-image: url("https://c3.mobifone.vn/api/assets/imgs/gradient.png");
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-position: center;
+  }
+
+	.grid-border{
+		border-radius: 0.5em;
+		border: solid 0.1em #FFFFFF;
+	}
+	
+	.background-page h1{
+		color: #030303;
+	}
+	
+	.background-page h2{
+		color: #030303
+	}
+	
+	.background-page p{
+		color: #030303
+	}
+	
+	.background-page ion-note{
+		color: #030303
+	}
+	
+	.table-row .table-header { //tất cả các cột sau class này
+		background: #99b7f0e0;
+        color:#202020;
+	}
+	
+	.table-row ion-col { //tất cả các cột sau class này
+		border: solid 0.1em #FFFFFF;
+	}
+	
+	.table-row .row-content ion-col:nth-of-type(odd) { //cột lẻ
+		background: #dde7fa;
+        color:#202020;
+	}
+	
+	.table-row ion-row:nth-of-type(even) { //dòng chẵn
+		background: #e6f5f8;
+        color:#202020;
+		
+	}
+
+
+}

@@ -1,0 +1,113 @@
+<ion-header>
+  <ion-navbar>
+
+    <ion-buttons *ngIf="!isSearch" start>
+      <button ion-button icon-only color="royal" (click)="goSearch()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+
+      <button ion-button icon-only color="primary" (click)="userAction()" [disabled]="userInfo?false:true">
+        <ion-icon name="contact"></ion-icon>
+      </button>
+
+    </ion-buttons>
+
+    <ion-buttons end>
+      <button ion-button icon-only color="secondary" (click)="goParameters()">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+    
+    <ion-searchbar *ngIf="isSearch" placeholder="Tìm theo mã/tên khách hàng/khu vực/người quản lý hoặc số điện thoại"
+      [(ngModel)]="searchString"
+      [showCancelButton]="shouldShowCancel"
+      (ionInput)="onInput($event)"
+      (keyup.enter)="searchEnter()"
+      (keyup.esc)="searchEnter()"
+      start>
+    </ion-searchbar>
+    
+    <ion-title *ngIf="!isSearch">CUSTOMER</ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-slides (ionSlideDidChange)="slideChanged()">
+      <!-- #id=0 -->
+      <ion-slide>
+          <ion-list>
+              <button ion-item *ngFor="let customer of customers" (click)="gotoSlideEdit(customer)">
+                
+                <ion-avatar item-start>
+                  <img src={{customer.image}} *ngIf="customer.image">
+                  
+                  <button ion-button icon-only color="secondary" round *ngIf="!customer.image">
+                      <ion-icon name="contact"></ion-icon>
+                  </button>
+
+                </ion-avatar>
+                
+                <h2>{{customer.cust_id}} - {{customer.full_name}}</h2>
+                <p>{{customer.area}} ({{customer.staff}})</p>
+                <ion-note>{{customer.cust_type}} {{customer.charge}} </ion-note>
+              </button>
+          </ion-list>
+      </ion-slide>
+      
+      <!-- #id=1 -->
+      <ion-slide>
+          <form [formGroup]="myFromGroup" (ngSubmit)="onSubmit()">
+
+              <ion-item>
+                <ion-label floating>Họ và Tên</ion-label>
+                <ion-input formControlName="full_name" type="text"></ion-input>
+              </ion-item>
+              
+              <ion-item>
+                <ion-label floating>Địa chỉ</ion-label>
+                <ion-input formControlName="address" type="address"></ion-input>
+              </ion-item>
+              
+              <ion-item>
+                <ion-label floating>Điện thoại</ion-label>
+                <ion-input formControlName="phone" type="phone"></ion-input>
+              </ion-item>
+              
+              <ion-item>
+                <ion-label floating>Email</ion-label>
+                <ion-input formControlName="email" type="email"></ion-input>
+              </ion-item>
+              
+              <ion-item>
+                <ion-label floating>Khu vực quản lý</ion-label>
+                <ion-input formControlName="area" type="text"></ion-input>
+              </ion-item>
+              
+              <ion-item>
+                <ion-label floating>Loại khách hàng</ion-label>
+                <ion-input formControlName="type" type="text"></ion-input>
+              </ion-item>
+              
+              <ion-row>
+                <ion-col text-center col-12 col-xl-3 col-lg-4 col-sm-6>
+                  <button ion-button block color="primary" type="button" (click)="goBack()">
+                    Trở về
+                  </button>
+                </ion-col>
+                <ion-col text-center col-12 offset-xl-6 col-xl-3 offset-lg-4 col-lg-4 col-sm-6>
+                  <button ion-button block color="primary" type="submit">
+                    Thay đổi
+                  </button>
+                </ion-col>
+              </ion-row>
+              
+            </form>
+      </ion-slide>
+  
+      <!-- #id=2 -->
+      <!-- #id=4 -->
+      <!-- #id=5 -->
+      <!-- #id=6 -->
+    </ion-slides>
+</ion-content>

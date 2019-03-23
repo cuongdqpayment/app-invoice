@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons left>
+      <button *ngFor="let color of signatureForm.colors" icon-only ion-button (click)="changeColor(color)">
+        <ion-icon color="{{color.name}}" name="brush"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title *ngIf="signatureForm.title">{{signatureForm.title}}</ion-title>
+
+    <ion-buttons right *ngFor="let btn of signatureForm.buttons">
+      <button class="badge-background" ion-button icon-only color="{{btn.color}}" (click)="onClickHeader(btn)">
+        <ion-icon name="{{btn.icon}}"></ion-icon>
+        <ion-badge class="badge-alert" color="danger" *ngIf="btn.alerts">{{
+          (btn.alerts?.length>99?'99+':btn.alerts?.length) }}</ion-badge>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding no-bounce>
+  <div class="draw-background" #fixedContainer ion-fixed>
+    <canvas #imageCanvas (touchstart)="handleStart($event)" (touchmove)="handleMove($event)"></canvas>
+    <!-- <button ion-button full (click)="saveCanvasImage()">Save Image</button> -->
+  </div>
+
+  <!-- <ion-list *ngIf="storedImages.length > 0">
+      <ion-list-header>Previous Drawings</ion-list-header>
+      <ion-card *ngFor="let obj of storedImages; let i = index">
+        <ion-card-content>
+          <img [src]="obj.img">
+        </ion-card-content>
+        <ion-row>
+          <button ion-button full icon-only color="danger" (click)="removeImageAtIndex(i)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-row>
+      </ion-card>
+    </ion-list> -->
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons left>
+      <button color="dark" ion-button icon-only (click)="clearCanvas()">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons right>
+      <button *ngFor="let brush of signatureForm.brushes" color="{{brush.color}}" ion-button icon-only (click)="changeSize(brush.size)">
+        <ion-icon [style.font-size]="brush.style" name="{{brush.icon}}"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,54 @@
+page-dynamic-list {
+
+	.background-page {
+		background-color: #2d96de;
+	}
+
+	.background-card {
+		background-color: #e9dbdb;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+	}
+
+	.background-list {
+		background-color: #e9dbdb;
+	}
+
+	.background-card ion-icon{
+		color: #2d96de;
+	}
+
+
+	.background-item {
+		background-color: #f3f3f3;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+		border-radius: 0.8em;
+	}
+
+	.gradient {
+    background-image: url("https://c3.mobifone.vn/api/assets/imgs/gradient.png");
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-position: center;
+  }
+
+	.grid-border{
+		border-radius: 0.5em;
+		border: solid 0.1em #FFFFFF;
+	}
+	
+	.background-page h1{
+		color: #030303;
+	}
+	
+	.background-page h2{
+		color: #030303
+	}
+	
+	.background-page p{
+		color: #030303
+	}
+	
+	.background-page ion-note{
+		color: #030303
+	}
+}

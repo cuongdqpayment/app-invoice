@@ -1,0 +1,157 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title start>{{server?.name}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only color="dark" class="badge-background" (click)="onClickSetting()">
+                <ion-icon name="cog"></ion-icon>
+                <ion-badge class="badge-alert" color="danger" *ngIf="alerts">
+                    {{ (alerts?.length>99?'99+':alerts?.length) }}</ion-badge>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content no-padding class="background-page gradient">
+    <ion-grid>
+        <ion-row>
+            <ion-col class="background-card speedtest grid-border" text-center col-12 offset-xl-4 col-xl-4 offset-lg-3
+                col-lg-6 offset-md-2 col-md-8 offset-sm-1 col-sm-10>
+                
+                <ion-grid no-padding *ngIf="app?.image&&!isRuning">
+                    <ion-row>
+                        <ion-col class="card-background-page" style="text-align: center;">
+                            <img [src]="app.image" width="200px" height="200px">
+                            <ion-label class="card-title">{{app?.name}}</ion-label>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+                <ion-card class="card-meter" *ngIf="isRuning">
+                    <div class="graphArea speedtest">
+                        <div class="graphName">{{objMeter?.graphName}}</div>
+                        <canvas class="meter" id="dlMeter"></canvas>
+                        <div class="meterText" id="dlText"></div>
+                        <div class="unit">{{objMeter?.unit}}</div>
+                    </div>
+                </ion-card>
+            </ion-col>
+            <ion-col text-center offset-4 col-4>
+                <button class="button-item" ion-button [disabled]="isRuning" round (click)="startStop()">
+                    Start
+                </button>
+            </ion-col>
+
+            <ion-col class="background-card gradient grid-border" text-center col-12 offset-xl-3 col-xl-6 offset-lg-3
+                col-lg-6 offset-md-2 col-md-8 col-sm-12 *ngIf="!dynamicList?.is_table&&result">
+                <ion-list class="background-list table-row">
+
+                    <ion-item-group [reorder]="editing" (ionItemReorder)="reorderData($event)">
+                        <ion-item class="background-item" *ngIf="result" (click)="onClickItem(result,idx)">
+                            <ion-icon item-start *ngIf="result.icon" name="{{result.icon}}" color="{{result.color}}">
+                            </ion-icon>
+                            <ion-avatar item-start *ngIf="result.image">
+                                <img [src]="result.image">
+                            </ion-avatar>
+
+                            <ion-title *ngIf="result.server">{{result.server?.name}}</ion-title>
+                            <strong *ngIf="result.ip">IP: {{result.ip}}</strong>
+                            <p *ngIf="result.device?.ip_info" text-wrap style="text-align: justify;">
+                                {{result.device?.ip_info?.hostname}}, {{result.device?.ip_info?.city}},
+                                {{result.device?.ip_info?.region}}, {{result.device?.ip_info?.country}},
+                                {{result.device?.ip_info?.org}}</p>
+                            <h3 *ngIf="result.download">DL: {{result.download}} Mbps</h3>
+                            <h3 *ngIf="result.upload">UL: {{result.upload}} Mbps</h3>
+                            <h3 *ngIf="result.ping">Ping: {{result.ping}} ms</h3>
+                            <p *ngIf="result.jitter">Jitter: {{result.jitter}}</p>
+                            <ion-note item-end *ngIf="result.start_local_time">{{result.time}}<br>{{result.date}}
+                            </ion-note>
+
+                        </ion-item>
+                        <ion-item class="background-item" *ngIf="debug">
+                            <p text-wrap>{{debug}}</p>
+                        </ion-item>
+                    </ion-item-group>
+                </ion-list>
+            </ion-col>
+
+            <ion-col class="background-card gradient grid-border table-row" col-12 offset-xl-1 col-xl-10 col-lg-12
+                col-md-12 col-sm-12 *ngIf="dynamicList?.is_table&&result">
+
+                <ion-grid>
+                    <ion-row text-center class="table-header" *ngIf="dynamicList?.header">
+                        <ion-col>
+                            <div *ngIf="dynamicList?.header?.title">{{dynamicList?.header?.title}}</div>
+                        </ion-col>
+                        <ion-col>
+                            <strong *ngIf="dynamicList?.header?.strong">{{dynamicList?.header?.strong}}</strong>
+                        </ion-col>
+                        <ion-col>
+                            <div *ngIf="dynamicList?.header?.p">{{dynamicList?.header?.p}}</div>
+                        </ion-col>
+                        <ion-col>
+                            <div *ngIf="dynamicList?.header?.span">{{dynamicList?.header?.span}}</div>
+                        </ion-col>
+                        <ion-col>
+                            <div *ngIf="dynamicList?.header?.label">{{dynamicList?.header?.label}}</div>
+                        </ion-col>
+                        <ion-col>
+                            <div *ngIf="dynamicList?.header?.note">{{dynamicList?.header?.note}}</div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="background-item row-content" *ngIf="result">
+                        <ion-col text-center>
+                            <div *ngIf="result.start_local_time">{{result.start_local_time}}</div>
+                        </ion-col>
+                        <ion-col>
+                            <div *ngIf="result.server">{{result.server?.name}}</div>
+                            <strong *ngIf="result.ip">{{result.ip}}</strong>
+                            <div *ngIf="result.device?.ip_info" text-wrap style="text-align: justify;">
+                                {{result.device?.ip_info?.hostname}}, {{result.device?.ip_info?.city}},
+                                {{result.device?.ip_info?.region}}, {{result.device?.ip_info?.country}},
+                                {{result.device?.ip_info?.org}}</div>
+                        </ion-col>
+                        <ion-col text-center>
+                            <div *ngIf="result.download">{{result.download}}</div>
+                        </ion-col>
+                        <ion-col text-center>
+                            <div *ngIf="result.upload">{{result.upload}}</div>
+                        </ion-col>
+                        <ion-col text-center>
+                            <div *ngIf="result.ping">{{result.ping}}</div>
+                        </ion-col>
+                        <ion-col text-center>
+                            <div *ngIf="result.jitter">{{result.jitter}}</div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row text-center class="table-header" *ngIf="dynamicList?.footer">
+                        <ion-col>
+                            <div *ngIf="dynamicList?.footer?.title">{{dynamicList?.footer?.title}}</div>
+                        </ion-col>
+                        <ion-col>
+                            <strong *ngIf="dynamicList?.footer?.strong">{{dynamicList?.footer?.strong}}</strong>
+                        </ion-col>
+                        <ion-col>
+                            <div *ngIf="dynamicList?.footer?.p">{{dynamicList?.footer?.p}}</div>
+                        </ion-col>
+                        <ion-col>
+                            <div *ngIf="dynamicList?.footer?.span">{{dynamicList?.footer?.span}}</div>
+                        </ion-col>
+                        <ion-col>
+                            <div *ngIf="dynamicList?.footer?.label">{{dynamicList?.footer?.label}}</div>
+                        </ion-col>
+                        <ion-col>
+                            <div *ngIf="dynamicList?.footer?.note">{{dynamicList?.footer?.note}}</div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-col>
+
+            <ion-col text-center offset-4 col-4 *ngIf="results.length>0">
+                <button class="button-item" ion-button round [disabled]="isRuning" (click)="viewResult()">
+                    Results
+                </button>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+</ion-content>

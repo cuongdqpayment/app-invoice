@@ -1,0 +1,144 @@
+.badge-background {
+    position: relative;
+    text-align: left;
+}
+
+.badge-background .badge-alert {
+    position: absolute;
+    left: 30%;
+    top: 20%;
+    padding: 0;
+    margin: 0;
+    font-size: 0.6em;
+    height: 30%;
+    width: 70%;
+    color: #fff;
+}
+
+.background-page {
+    background-color: #2d96de;
+}
+
+.background-page ion-icon{
+    color: #2d96de;
+}
+
+.background-card {
+    background-color: #f3f3f3;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.background-card ion-icon{
+    color: #2d96de;
+}
+
+.gradient {
+    background-image: url("https://c3.mobifone.vn/api/assets/imgs/gradient.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.grid-border{
+    border-radius: 0.5em;
+    border: solid 0.1em #FFFFFF;
+}
+
+.padding-col{
+    padding: 2px;
+}
+
+.card-background-header {
+    position: relative;
+    text-align: left;
+}
+
+
+@media (min-width:0px){
+    .background-image-header{
+        background-size: cover;
+        background-position: center; 
+        min-height: 100px;
+    }
+    .card-background-header .avatar-header {
+        position: absolute;
+        top: 10px;
+        left: 5px;
+        width: 80px;
+        height: 80px;
+        font-weight: bold;
+        color: #fff;
+        border-radius: 50%;
+        border: 5px solid greenyellow;
+        background-size: cover;
+        background-position: center; 
+    }
+    .card-background-header .card-title-header {
+        position: absolute;
+        top: 25%;
+        left: 33%;
+        font-size: 1.5em;
+        width: 67%;
+        font-weight: bold;
+        color: #fff;
+    }
+}
+@media (min-width:420px){
+    .background-image-header{
+        background-size: cover;
+        background-position: center; 
+        min-height: 160px;
+    }
+    .card-background-header .avatar-header {
+        position: absolute;
+        top: 30px;
+        left: 5px;
+        width: 100px;
+        height: 100px;
+        font-weight: bold;
+        color: #fff;
+        border-radius: 50%;
+        border: 5px solid greenyellow;
+        background-size: cover;
+        background-position: center; 
+    }
+    .card-background-header .card-title-header {
+        position: absolute;
+        top: 35%;
+        left: 38%;
+        font-size: 1.5em;
+        width: 62%;
+        font-weight: bold;
+        color: #fff;
+    }
+}
+@media (min-width:720px){
+    .background-image-header{
+        background-size: cover;
+        background-position: center; 
+        min-height: 200px;
+    }
+    .card-background-header .avatar-header {
+        position: absolute;
+        top: 40px;
+        left: 5px;
+        width: 120px;
+        height: 120px;
+        font-weight: bold;
+        color: #fff;
+        border-radius: 50%;
+        border: 5px solid greenyellow;
+        box-shadow: 0 1px 10px whitesmoke;
+        background-size: cover;
+        background-position: center; 
+    }
+    .card-background-header .card-title-header {
+        position: absolute;
+        top: 35%;
+        left: 130px;
+        font-size: 1.8em;
+        width: 60%;
+        font-weight: bold;
+        color: #fff;
+    }
+}	

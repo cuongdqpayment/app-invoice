@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons start *ngIf="!isSearch && view.header?.search_bar">
+      <button ion-button icon-only color="primary" (click)="goSearch()">
+          <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-searchbar start *ngIf="isSearch && view.header?.search_bar" placeholder="{{view.header.search_bar.hint}}" [(ngModel)]="view.header.search_bar.search_string"
+    [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" (keyup.enter)="searchEnter()"
+    (keyup.esc)="searchEnterEsc()" (focusout)="searchEnterEsc()">
+    </ion-searchbar>
+    
+    <ion-title *ngIf="!isSearch">{{view.header?.title}}{{(isRuningInterval?' - TRACKING':'')}}</ion-title>
+
+    <ion-buttons end *ngFor="let btn of view.header?.buttons">
+        <button *ngIf="!isSearch" class="badge-background" ion-button icon-only color="{{btn.color}}" (click)="onClickAction(btn)">
+            <ion-icon name="{{btn.icon}}"></ion-icon>
+            <ion-badge class="badge-alert" color="danger" *ngIf="btn.alerts">{{ (btn.alerts?.length>99?'99+':btn.alerts?.length) }}</ion-badge>
+        </button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div #map id="map"></div>
+  <!--cac object sau se hien thi len truoc-->
+  <div *ngIf="isShowCenter">
+    <div [ngClass]="classFloatInfo">{{view.header.search_bar.search_result?.address}}</div>
+    <div class="h-line"></div>
+    <div class="v-line"></div>
+    <ion-icon name="pin" [ngClass]="className"></ion-icon>
+  </div>
+  
+  <!--nut trung tam de lua chon vi tri-->
+  <ion-fab #fab *ngIf="view.dynamic" [attr.middle]="view.dynamic.middle" [attr.center]="view.dynamic.center" [attr.left]="view.dynamic.left" [attr.right]="view.dynamic.right" [attr.bottom]="view.dynamic.bottom" [attr.top]="view.dynamic.top">
+    <button [attr.mini]="view.dynamic.mini" ion-fab color="{{view.dynamic.controler.color}}">
+      <ion-icon name="{{view.dynamic.controler.icon}}"></ion-icon>
+    </button>
+    <ion-fab-list *ngFor="let direct of view.dynamic?.directions" attr.side="{{direct.side}}">
+      <button *ngFor="let btn of direct.actions" ion-fab color="{{btn.color}}" (click)="onClickAction(btn,fab)">
+        <ion-icon *ngIf="btn.icon" name="{{btn.icon}}"></ion-icon>
+        <span *ngIf="btn.name">{{btn.name}}</span>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+
+  <ion-fab *ngIf="view.fix" [attr.middle]="view?.fix?.middle" [attr.center]="view?.fix?.center" [attr.left]="view?.fix?.left" [attr.right]="view?.fix?.right" [attr.bottom]="view?.fix?.bottom" [attr.top]="view?.fix?.top">
+    <button *ngFor="let btn of view.fix.actions" [attr.mini]="view?.fix?.mini" ion-fab color="{{btn.color}}" (click)="onClickAction(btn)">
+        <ion-icon *ngIf="btn.icon" name="{{btn.icon}}"></ion-icon>
+        <span *ngIf="btn.name">{{btn.name}}</span>
+    </button>
+  </ion-fab>
+
+</ion-content>

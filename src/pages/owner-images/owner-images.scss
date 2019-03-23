@@ -1,0 +1,155 @@
+page-owner-images {
+
+	.padding-col{
+		padding: 2px;
+	}
+
+	.one-image{
+		margin: 2px;
+	}
+
+	.input-item {
+		border-radius: 1em;
+		opacity: 0.9;
+		font-size: 1em;
+	}
+
+	.background-page {
+		background-color: #2d96de;
+	}
+
+	.gradient {
+        background-image: url("https://c3.mobifone.vn/api/assets/imgs/gradient.png");
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-position: center;
+	}
+	
+	.file-background {
+		position: relative;
+		text-align: center;
+	}
+
+	.file-background .file-over {
+		position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+	}
+
+	.card-background-page {
+			position: relative;
+			text-align: center;
+	}
+
+	.card-background-page .file-over {
+		position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+	}
+
+	.card-background-page .file-upload-image {
+		background-size: cover;
+		min-width: 100px;
+		min-height: 100px;
+	}
+
+	.card-background-page .file-upload-title {
+		position: absolute;
+		top: 25%;
+		font-size: 2em;
+		width: 100%;
+		font-weight: bold;
+		color: lightblue;
+	}
+	.card-background-page .file-upload-subtitle {
+		position: absolute;
+		top: 55%;
+		font-size: 1em;
+		width: 100%;
+		font-weight: bold;
+		color: darkcyan;
+	}
+	
+	.card-background-page .card-title {
+			position: absolute;
+			top: 36%;
+			font-size: 1.5em;
+			width: 100%;
+			font-weight: bold;
+			color: #fff;
+	}
+	
+	.card-background-page .card-subtitle {
+		position: absolute;
+		top: 90%;
+		left: 30%;
+		font-size: 1em;
+		width: 100%;
+		font-weight: bold;
+		color: #fff;
+	}
+
+
+	.card-background-selected {
+		position: relative;
+    	text-align: center;
+	}
+
+	.card-background-selected:hover{
+		box-shadow: 0 0 2em rgba(0,0,0,0.1), inset 0 0 1em rgba(0,0,0,0.1);
+		.avatar-selected{
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			width: 100%;
+			height: 100%;
+			font-weight: bold;
+			color: #fff;
+			border-radius: 50%;
+			border: 5px solid greenyellow;
+		}
+	}
+
+	@media (min-width:0px){
+		.image-height-1{
+			background-size: cover;
+			background-position: center; 
+			min-height: 200px;
+		}
+		.image-height-2{
+			background-size: cover;
+			background-position: center; 
+			min-height: 150px;
+		}
+		.image-height-3{
+			background-size: cover;
+			background-position: center; 
+			min-height: 100px;
+		}
+	}
+	@media (min-width:420px){
+		.image-height-2{
+			background-size: cover;
+			background-position: center; 
+			min-height: 175px;
+		}
+	}
+	@media (min-width:720px){
+		.image-height-2{
+			background-size: cover;
+			background-position: center; 
+			min-height: 200px;
+		}
+	}	
+	
+}

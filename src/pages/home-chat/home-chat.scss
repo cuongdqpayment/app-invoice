@@ -1,0 +1,81 @@
+page-home-chat {
+    .background-list {
+		background-color: #e9dbdb;
+    }
+    
+    .background-item {
+		background-color: #f3f3f3;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        border-radius: 0.1em;
+        padding: 2px;
+	}
+
+    .item-settings {
+        color: #9c2626;
+        margin-bottom: 1px;
+        font-size: 2rem;
+        cursor: pointer;
+        background-color:  #abd6c8
+     }
+    .item-settings:hover {
+        background-color:  #2289a8
+     }
+     
+    ion-avatar  {     
+        width:100% !important;  
+        height : 100% !important;  
+        max-width: 50px !important;  //any size
+        max-height: 50px !important; //any size 
+        }
+
+    .other-avatar{
+        background: transparent!important;;
+    }
+    .list-avatar-page {
+        ion-note {
+        font-size: 12px;
+        align-self: flex-start;
+        margin-top: 14px;
+        }
+    }
+    //scroll for slide
+    .swiper-slide{
+        overflow-y: scroll;
+        display: block;
+    }
+
+  
+    .message {
+        padding: 5px !important;
+        margin: 0px !important;
+        transition: all 250ms ease-in-out !important;
+        border-radius: 10px !important;
+        margin-bottom: 4px !important;
+    }
+    .my_message {
+        background: #dff4f8 !important;
+        color: #7425f1 !important;
+    }
+    .other_message {
+        background: #e0e0e0 !important;
+        color: #0c056b !important;
+    }
+    .nick-name{
+        float: left;
+        color: #650572;
+        font-size: large;
+    }
+   
+    .text-message{
+        float: left;
+    }
+    
+    .time {
+        color: #f15c82;
+        float: right;
+        font-size: small;
+    }
+    .message_row {
+        background-color: #fff;
+    }
+}

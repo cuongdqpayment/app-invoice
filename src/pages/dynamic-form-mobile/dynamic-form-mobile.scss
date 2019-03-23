@@ -1,0 +1,35 @@
+page-dynamic-form-mobile {
+
+	.background-page {
+		background-color: #2d96de;
+	}
+
+	.background-page ion-icon{
+		color: #2d96de;
+	}
+
+	.gradient {
+    background-image: url("https://c3.mobifone.vn/api/assets/imgs/gradient.png");
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-position: center;
+    }
+
+	.input-item {
+		border-radius: 1.5em;
+		opacity: 0.9;
+		font-size: 1em;
+	}
+
+	.title-item {
+		color: white;
+		text-align: center;
+		font-size: 1.4em;
+	}
+
+	.button-item{
+		border: solid 0.1em;
+		width: 100%;
+	}
+	
+}

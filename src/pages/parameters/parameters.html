@@ -1,0 +1,115 @@
+<ion-header>
+  <ion-navbar>
+      <ion-title *ngIf="!isSearch">CÁC THAM SỐ</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content">
+
+  <ion-list>
+    
+    <ion-item *ngFor="let p of parameters">
+      <ion-row>
+        <ion-col text-left col-6 col-xl-3 col-lg-4 col-md-5 col-sm-5>
+          <ion-buttons>
+            <button ion-button color="secondary" outline icon-only (click)="selectGroup(p)">
+              <ion-icon [name]="p.icon?p.icon:'arrow-dropdown-circle'"></ion-icon>
+              {{ p.type }}.{{ p.code?p.code:p.id }} • {{ p.description }}
+            </button>
+          </ion-buttons>
+        </ion-col>
+        <ion-col class="hidden-sm-down" text-center col-xl-2 col-lg-2 col-md-2 col-sm-3>
+            {{ p.name }}
+        </ion-col>
+        <ion-col class="hidden-md-down" text-center col-xl-1 col-lg-1 col-md-1>
+            {{ p.code }}
+        </ion-col>
+        <ion-col text-right col-4 col-xl-2 col-lg-2 col-md-2 col-sm-2>
+            {{ p.value }}
+        </ion-col>
+        <ion-col text-right col-2 offset-xl-2 col-xl-2 offset-lg-1 col-lg-2 col-md-2 col-sm-2>
+            {{ p.order_1 }}
+        </ion-col>
+        </ion-row>
+        
+    </ion-item>
+
+  </ion-list>
+
+  <ion-list>
+
+      <ion-toolbar color="primary">
+          <ion-buttons start>
+            <button ion-button color="secondary" outline icon-only class="activated" (click)="addGroupParameters()"  *ngIf="groupName?.length > 0">
+              <ion-icon name="add"></ion-icon>
+            </button>
+          </ion-buttons>
+          <ion-buttons end>
+              <button ion-button outline icon-start class="activated" (click)="toggleEdit()" *ngIf="children?.length > 1">
+                <ion-icon name="swap"></ion-icon>
+                {{editButton}}
+              </button>
+            </ion-buttons>
+          <ion-row>
+              <ion-col text-center col-6 col-xl-3 col-lg-4 col-md-5 col-sm-5>
+                  <ion-title>{{groupName}}</ion-title>
+              </ion-col>
+              <ion-col class="hidden-sm-down" text-center col-xl-2 col-lg-2 col-md-2 col-sm-3>
+                  <ion-title>Tên</ion-title>
+              </ion-col>
+              <ion-col class="hidden-md-down" text-center col-xl-1 col-lg-1 col-md-1>
+                  <ion-title>Mã(code)</ion-title>
+              </ion-col>
+              <ion-col text-right col-4 col-xl-2 col-lg-2 col-md-2 col-sm-2>
+                  <ion-title>Giá trị</ion-title>
+              </ion-col>
+              <ion-col text-right col-2 offset-xl-2 col-xl-2 offset-lg-1 col-lg-2 col-md-2 col-sm-2>
+                  <ion-title>Thứ tự</ion-title>
+              </ion-col>
+          </ion-row>
+      </ion-toolbar>
+      <ion-item-group [reorder]="editing" (ionItemReorder)="reorderData($event)">
+        <ion-item-sliding *ngFor="let ch of children" #item>
+          <ion-item>
+            <ion-icon [name]="ch.icon?ch.icon:'logo-google'" item-start></ion-icon>
+            <ion-row>
+              <ion-col text-left col-6 col-xl-3 col-lg-4 col-md-5 col-sm-5>
+                  {{ ch.type }}.{{ ch.code?ch.code:ch.id }} • {{ ch.description }}
+              </ion-col>
+              <ion-col class="hidden-sm-down" text-center col-xl-2 col-lg-2 col-md-2 col-sm-3>
+                {{ ch.name }}
+              </ion-col>
+              <ion-col class="hidden-md-down" text-center col-xl-1 col-lg-1 col-md-1>
+                {{ ch.code }}
+              </ion-col>
+              <ion-col text-right col-4 col-xl-2 col-lg-2 col-md-2 col-sm-2>
+                {{ ch.value }}
+              </ion-col>
+              <ion-col text-right col-2 offset-xl-2 col-xl-2 offset-lg-1 col-lg-2 col-md-2 col-sm-2>
+                {{ ch.order_1 }}
+              </ion-col>
+            </ion-row>
+          </ion-item>
+
+          <ion-item-options side="left">
+              <button ion-button color="danger">
+                <ion-icon name="trash"></ion-icon>
+              </button>
+            </ion-item-options>
+
+            <ion-item-options (ionSwipe)="download(item)" icon-start>
+              <button ion-button color="dark" (click)="more(item)">
+                <ion-icon name="volume-off"></ion-icon>
+                Mute
+              </button>
+              <button ion-button color="light" expandable (click)="download(item)">
+                <ion-icon name="download" class="expand-hide"></ion-icon>
+                <div class="expand-hide">Download</div>
+                <ion-spinner id="download-spinner"></ion-spinner>
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
+      </ion-item-group>
+    </ion-list>
+
+</ion-content>

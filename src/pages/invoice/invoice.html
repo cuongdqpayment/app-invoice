@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>INVOINCES - Các kỳ đã phát hành</ion-title>
+        <ion-buttons end color="primary">
+            <button ion-button (click)="onClickHeaders('BUILD')">Tạo mới</button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+        
+    <ion-list>
+
+        <ion-item-sliding #slidingItem class="background-list" *ngFor="let cycle of billCycles">
+            
+                <ion-item #item class="background-item" tappable (click)="onClickItem(cycle)">
+                    <ion-avatar item-start *ngIf="cycle.image">
+                        <img [src]="cycle.image">
+                    </ion-avatar>
+                    <ion-title >Kỳ cước {{cycle.bill_cycle_vn}}</ion-title>
+                    <h3>Số lượng khách hàng {{cycle.count_customer}}</h3>
+                    <p text-wrap>Từ hóa đơn số {{cycle.invoice_no_min}} đến {{cycle.invoice_no}}</p>
+                    <ion-note item-end>{{cycle.bill_date_vn}}</ion-note>
+                </ion-item>
+    
+                <ion-item-options>
+                    <button ion-button color="bg-blue" (click)="onClickDetails(slidingItem, cycle, 'RE-BUILD')">
+                        <ion-icon name="calculator"></ion-icon>
+                        Phát hành lại
+                    </button>
+                    <button ion-button color="secondary" (click)="onClickDetails(slidingItem, cycle, 'PRINT-ALL')">
+                        <ion-icon name="print"></ion-icon>
+                        Tạo bản in
+                    </button>
+                    <button ion-button color="danger" (click)="onClickDetails(slidingItem, cycle, 'PRINT-ONE')">
+                        <ion-icon name="list-box"></ion-icon>
+                        In đơn lẻ
+                    </button>
+                </ion-item-options>
+    
+                <ion-item-options side="left">
+                    <button ion-button color="primary" expandable (click)="onClickDetails(slidingItem, cycle, 'RELOAD')">
+                        <ion-icon name="checkmark"></ion-icon>
+                        <div>Reload</div>
+                        <ion-spinner id="archive-spinner"></ion-spinner>
+                    </button>
+                </ion-item-options>
+
+        </ion-item-sliding>
+
+    </ion-list>
+</ion-content>

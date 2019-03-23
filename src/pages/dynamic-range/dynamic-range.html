@@ -1,0 +1,96 @@
+<ion-header *ngIf="dynamicForm.title">
+	<ion-navbar>
+		<ion-title>{{dynamicForm.title}}</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content no-padding class="background-page gradient">
+
+	<ion-grid> 
+		<ion-row>
+			<ion-col class="background-card gradient grid-border" text-center col-12 offset-xl-3 col-xl-6 offset-lg-3 col-lg-6
+			 offset-md-2 col-md-8 col-sm-12>
+
+			 	<ion-list *ngFor="let it of dynamicForm.items">
+
+					<!-- range adjust -->
+					<div *ngIf="it.type == 'range'">
+						<ion-label color="primary" *ngIf="it.name" text-wrap style="text-align: justify; font-size: 1.3em">{{it.name}}</ion-label>
+						<ion-item class="input-item" *ngFor="let detail of it.details">
+							<ion-range min="{{detail.min}}" max="{{detail.max}}" color="{{detail.color}}" pin="true" snaps="true" [(ngModel)]="detail.value">
+								<ion-icon range-left small name="{{detail.icon}}"></ion-icon>
+								<ion-icon range-right name="{{detail.icon}}"></ion-icon>
+							</ion-range>
+						</ion-item>
+					</div>
+					
+					<!-- rang text star mark -->
+					<div *ngIf="it.type == 'range-star'">
+						<ion-label color="primary" *ngIf="it.name" text-wrap style="text-align: justify; font-size: 1.3em">{{it.name}}</ion-label>
+						<ion-item class="input-item" *ngFor="let detail of it.details">
+							<ion-range  min="{{detail.min}}" max="{{detail.max}}" color="{{detail.color}}" pin="true" snaps="true" [(ngModel)]="detail.value">
+								<ion-label *ngIf="detail.name" range-left style="font-size: 1em;  color:#488aff">{{detail.name}}</ion-label>
+								<ion-icon *ngIf="!detail.name" range-left style="font-size: 1.5em; color: #f5e93dcc" name="{{detail.icon}}"></ion-icon>
+								<ion-icon range-right style="font-size: 3em; color: #f5e93dcc" name="{{detail.icon}}"></ion-icon>
+							</ion-range>
+						</ion-item>
+					</div>
+
+					<!-- rang text with value -->
+					<div *ngIf="it.type == 'range-text'">
+						<ion-label color="primary" *ngIf="it.name" text-wrap style="text-align: justify; font-size: 1.3em">{{it.name}}</ion-label>
+						<ion-item class="input-item" *ngFor="let detail of it.details">
+							<ion-label color="primary" *ngIf="detail.name&&detail.name.length>20" text-wrap style="text-align: justify;">{{detail.name}}</ion-label>
+							<ion-range min="{{detail.min}}" max="{{detail.max}}" color="{{detail.color}}" snaps="true" [(ngModel)]="detail.value" >
+								<ion-label range-left color="primary" *ngIf="detail.name&&detail.name.length<=20">{{detail.name}}</ion-label>
+								<ion-label range-right style="background-color: darkblue; color:whitesmoke; border-radius: 0.3em;">{{detail.value}} {{detail.hint}}</ion-label>
+							</ion-range>
+						</ion-item>
+					</div>
+
+					<!-- single select -->
+					<div *ngIf="it.type == 'select'">
+						<ion-label color="primary" *ngIf="it.name" text-wrap style="text-align: justify; font-size: 1.3em">{{it.name}}</ion-label>
+						<ion-item class="input-item" *ngFor="let detail of it.details">
+							<ion-label color="primary" text-wrap style="text-align: justify;">{{detail.name?detail.name:detail.hint}}</ion-label>
+							<ion-select [(ngModel)]="detail.value" style="background-color: rgb(103, 112, 230); color:whitesmoke; border-radius: 1em;">
+								<ion-option *ngFor="let mySet of detail.options" value="{{mySet.value}}" >{{mySet.name}}</ion-option>
+							</ion-select>
+						</ion-item>
+					</div>
+
+					<!-- check box -->
+					<div *ngIf="it.type == 'check'">
+						<ion-label color="primary" *ngIf="it.name" text-wrap style="text-align: justify; font-size: 1.3em">{{it.name}}</ion-label>
+						<ion-item class="input-item" *ngFor="let detail of it.details">
+							<ion-label color="primary" text-wrap style="text-align: justify;">{{detail.name}}</ion-label>
+							<ion-checkbox color="primary" [(ngModel)]="detail.value"></ion-checkbox>
+						</ion-item>
+					</div>
+
+					<!-- toggle check -->
+					<div *ngIf="it.type == 'toggle'">
+						<ion-label color="primary" *ngIf="it.name" text-wrap style="text-align: justify; font-size: 1.3em">{{it.name}}</ion-label>
+						<ion-item class="input-item" *ngFor="let detail of it.details">
+							<ion-icon *ngIf="detail.icon" name="{{detail.icon}}" item-start color="primary"></ion-icon>
+							<ion-label color="primary" text-wrap style="text-align: justify;">{{detail.name}}</ion-label>
+							<ion-toggle color="{{detail.color}}" [(ngModel)]="detail.value"></ion-toggle>
+						</ion-item>
+					</div>
+					
+					<!-- button action -->
+					<ion-grid *ngIf="it.type == 'button'">
+						<ion-row>
+							<ion-col *ngFor="let myBtn of it.options" style="text-align: center;">
+								<button class="button-item" [(ngStyle)]="pageContent" ion-button round (click)="onClick(myBtn)">
+									{{myBtn.name}}
+								</button>
+							</ion-col>
+						</ion-row>
+					</ion-grid>
+
+				</ion-list>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>

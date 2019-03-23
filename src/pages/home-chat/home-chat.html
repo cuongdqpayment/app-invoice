@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-navbar>
+      <ion-buttons end *ngIf="!isSearch && chatManager?.search_bar">
+          <button ion-button icon-only color="primary" (click)="goSearch()">
+              <ion-icon name="search"></ion-icon>
+          </button>
+      </ion-buttons>
+
+      <ion-searchbar start *ngIf="isSearch && chatManager?.search_bar" placeholder="{{chatManager?.search_bar.hint}}" [(ngModel)]="searchString"
+      [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)" (keyup.enter)="searchEnter()"
+      (keyup.esc)="searchEnter()">
+      </ion-searchbar>
+      
+      <ion-title *ngIf="!isSearch">{{chatManager?.title}}</ion-title>
+
+      <ion-buttons end *ngFor="let btn of chatManager?.buttons">
+          <button *ngIf="!isSearch" class="badge-background" ion-button icon-only color="{{btn.color}}" (click)="onClickHeader(btn)">
+              <ion-icon name="{{btn.icon}}"></ion-icon>
+              <ion-badge class="badge-alert" color="danger" *ngIf="btn.alerts">{{ (btn.alerts?.length>99?'99+':btn.alerts?.length) }}</ion-badge>
+          </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="list-avatar-page">
+   
+    <ion-list>
+
+        <ion-item-sliding #slidingItem class="background-list" *ngFor="let room of rooms">
+            
+                <ion-item #item class="background-item" tappable (click)="onClickItem(room)">
+                    <ion-avatar item-start *ngIf="room.image">
+                        <img [src]="room.image">
+                    </ion-avatar>
+                    <ion-title >{{room.name}}</ion-title>
+                    <p *ngIf="room.messages">{{room.messages[room.messages.length-1]?.text}}</p>
+                    <ion-note item-end *ngIf="room.messages">{{room.messages[room.messages.length-1]?.created | timeAgo}}</ion-note>
+                    <ion-icon *ngIf="!isMobile" item-end [style.color]="room.visible?'darkgoldenrod':'darkblue'" 
+                              name="{{room.visible?'ios-arrow-forward':'ios-arrow-back'}}" 
+                              tappable (click)="openSwipeOptions(slidingItem, item, room)"></ion-icon>
+                </ion-item>
+    
+                <ion-item-options>
+                    <button ion-button color="bg-blue" (click)="onClickDetails(slidingItem, room, 1)">
+                        <ion-icon name="ios-arrow-dropup"></ion-icon>
+                        Pin
+                    </button>
+                    <button ion-button color="secondary" (click)="onClickDetails(slidingItem, room, 2)">
+                        <ion-icon name="volume-off"></ion-icon>
+                        Mute
+                    </button>
+                    <button ion-button color="danger" (click)="onClickDetails(slidingItem, room, 3)">
+                        <ion-icon name="trash"></ion-icon>
+                        Delete
+                    </button>
+                </ion-item-options>
+    
+                <ion-item-options side="left">
+                    <button ion-button color="primary" expandable (click)="onClickDetails(slidingItem, room, 4)">
+                        <ion-icon name="checkmark"></ion-icon>
+                        <div>Read</div>
+                        <ion-spinner id="archive-spinner"></ion-spinner>
+                    </button>
+                </ion-item-options>
+
+        </ion-item-sliding>
+
+    </ion-list>
+
+
+
+</ion-content>

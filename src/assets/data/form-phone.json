@@ -1,0 +1,11 @@
+{
+    "items": [
+      { "name": "Nhập số điện thoại","type": "title"}
+      , { "id": 1, "key": "phone", "name": "Phone number","hint": "Yêu cầu định dạng số điện thoại 9 số nhé","type": "text","input_type": "tel","icon": "call","validators": [{ "required": true, "min": 9, "max": 9, "pattern": "^[0-9]*$" }]}
+       , {
+        "name": "BUTTON GROUP","type": "button"
+        ,"options": [
+            { "name": "Xác thực", "next": "CALLBACK", "url": "https://c3.mobifone.vn/api/ext-auth/request-isdn"}
+        ]
+      }]
+}
