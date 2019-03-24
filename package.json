@@ -1,6 +1,6 @@
 {
-  "name": "cuongdq-speedtest",
-  "version": "2.0.0",
+  "name": "app-invoice",
+  "version": "1.0.0",
   "author": "Cuong.dq",
   "homepage": "https://cuongdq-ionic.herokuapp.com",
   "private": true,
@@ -58,7 +58,7 @@
     "@ionic/app-scripts": "3.2.2",
     "typescript": "~2.6.2"
   },
-  "description": "Speedtest Project of Cuongdq",
+  "description": "Invoice Project of Cuongdq",
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
