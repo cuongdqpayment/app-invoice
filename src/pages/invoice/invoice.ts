@@ -263,9 +263,10 @@ export class InvoicePage {
 
     if (func==='PRINT-ALL'){
       let link = ApiStorageService.resourceServer+"/db/pdf-invoices/"+cycle.bill_cycle;
-      var target = "_blank"; //mo trong inappbrowser
-      var options = "hidden=no,toolbar=yes,location=yes,presentationstyle=fullscreen,clearcache=yes,clearsessioncache=yes";
-      this.inAppBrowser.create(link,target,options);
+      //var target = "_blank"; //mo trong inappbrowser
+      //var options = "hidden=no,toolbar=yes,location=yes,presentationstyle=fullscreen,clearcache=yes,clearsessioncache=yes";
+      //this.inAppBrowser.create(link,target,options);
+      this.inAppBrowser.create(link);
     }
   }
 
