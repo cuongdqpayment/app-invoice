@@ -20,6 +20,7 @@ export class InvoicePage {
               private inAppBrowser: InAppBrowser,
               private resource: ApiResourceService,
               private pubService: ApiHttpPublicService,
+              private apiStorageService: ApiStorageService,
               private platform: Platform,
               private alertCtrl: AlertController,
               private modalCtrl: ModalController,
@@ -83,14 +84,6 @@ export class InvoicePage {
     })
   }
 
-  onClickItem(cycle){
-      let link = ApiStorageService.resourceServer+"/db/pdf-invoices/"+cycle.bill_cycle;
-      if (this.platform.is('ios')) {
-        this.inAppBrowser.create(link);
-      } else {
-        window.open(link, '_system');
-      }
-  }
 
   /**
    * Thay đổi cách bấm nút đóng lệnh bằng nút trên item sliding
@@ -221,6 +214,25 @@ export class InvoicePage {
 
   }
 
+/**
+   * Khi bam len tung item, thi cho popup cua so chon
+   * nhan vien, khu vuc, gia cuoc, ... khach le de in
+   * 
+   * @param cycle 
+   */
+  onClickItem(cycle){
+
+     
+
+    let link = ApiStorageService.resourceServer+"/db/pdf-invoices/"+cycle.bill_cycle+"?token="+this.apiStorageService.getToken();
+    if (this.platform.is('ios')) {
+      this.inAppBrowser.create(link);
+    } else {
+      window.open(link, '_system');
+    }
+}
+
+
   onClickDetails(slidingItem: ItemSliding, cycle: any, func: string){
     this.closeSwipeOptions(slidingItem);
 
@@ -262,7 +274,7 @@ export class InvoicePage {
     }
 
     if (func==='PRINT-ALL'){
-      let link = ApiStorageService.resourceServer+"/db/pdf-invoices/"+cycle.bill_cycle;
+      let link = ApiStorageService.resourceServer+"/db/pdf-invoices/"+cycle.bill_cycle+"?token="+this.apiStorageService.getToken();
       //var target = "_blank"; //mo trong inappbrowser
       //var options = "hidden=no,toolbar=yes,location=yes,presentationstyle=fullscreen,clearcache=yes,clearsessioncache=yes";
       //this.inAppBrowser.create(link,target,options);
