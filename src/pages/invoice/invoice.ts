@@ -257,7 +257,7 @@ export class InvoicePage {
         ,
         { type: "select", key: "price_id", name: "Loại khách hàng", value: 0,  options: [{ name: "<<Tất cả>>", value: 0 }] }
         ,
-        { type: "text", key: "cust_id", disabled: false, name: "Mã khách hàng", input_type: "text", icon: "contact" }
+        { type: "text", key: "cust_id", name: "Mã khách hàng", input_type: "text", icon: "contact" }
         ,
         { 
           type: "button"

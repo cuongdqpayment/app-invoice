@@ -53,7 +53,7 @@
 					<ion-item class="input-item" *ngIf="it.type == 'text'">
 						<ion-label floating color="danger" text-wrap style="text-align: justify;" *ngIf="it.invalid">{{it.hint}}(*)</ion-label>
 						<ion-icon item-left name="{{it.icon}}" *ngIf="it.icon"></ion-icon>
-						<ion-input type="{{it.input_type}}" placeholder={{it.name?it.name:it.hint}} [(ngModel)]="it.value" disabled="{{it.disabled}}"></ion-input>
+						<ion-input type="{{it.input_type}}" placeholder={{it.name?it.name:it.hint}} [(ngModel)]="it.value" [disabled]="it.disabled"></ion-input>
 					</ion-item>
 
 					<!-- input text-area -->
