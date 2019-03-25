@@ -215,7 +215,7 @@ export class InvoicePage {
 
 
   callbackPrintSelect = function (res){
-    console.log(res)
+    //console.log(res)
     
     return new Promise((resolve, reject) => {
       let link = ApiStorageService.resourceServer+"/db/pdf-invoices/"
@@ -244,7 +244,6 @@ export class InvoicePage {
    * @param cycle 
    */
   async onClickItem(cycle){
-
     
     let data:any = {
       title: "Lọc theo tiêu chí"
