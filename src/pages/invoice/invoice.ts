@@ -211,8 +211,31 @@ export class InvoicePage {
       })
       
     }
-
   }
+
+
+  callbackPrintSelect = function (res){
+    console.log(res)
+    
+    return new Promise((resolve, reject) => {
+      let link = ApiStorageService.resourceServer+"/db/pdf-invoices/"
+                +res.data.bill_cycle
+                +"?token="+this.apiStorageService.getToken()
+                +(res.data.area_id?"&area_id="+res.data.area_id:"")
+                +(res.data.staff_id?"&staff_id="+res.data.staff_id:"")
+                +(res.data.price_id?"&price_id="+res.data.price_id:"")
+                +(res.data.cust_id?"&cust_id="+res.data.cust_id:"")
+                ;
+      if (this.platform.is('ios')) {
+        this.inAppBrowser.create(link);
+      } else {
+        window.open(link, '_system');
+      }
+
+      resolve({next:"CLOSE"});
+
+    })
+  }.bind(this);
 
 /**
    * Khi bam len tung item, thi cho popup cua so chon
@@ -220,16 +243,70 @@ export class InvoicePage {
    * 
    * @param cycle 
    */
-  onClickItem(cycle){
+  async onClickItem(cycle){
 
-     
-
-    let link = ApiStorageService.resourceServer+"/db/pdf-invoices/"+cycle.bill_cycle+"?token="+this.apiStorageService.getToken();
-    if (this.platform.is('ios')) {
-      this.inAppBrowser.create(link);
-    } else {
-      window.open(link, '_system');
+    
+    let data:any = {
+      title: "Lọc theo tiêu chí"
+      , items: [
+        { type: "text", key: "bill_cycle", disabled: true, value: cycle.bill_cycle, name: "Kỳ cước", input_type: "text", icon: "alarm" }
+        ,
+        { type: "select", key: "area_id", name: "Khu vực", value: 0,  options: [{ name: "<<Tất cả>>", value: 0 }] }
+        ,
+        { type: "select", key: "staff_id", name: "Quản lý", value: 0,  options: [{ name: "<<Tất cả>>", value: 0 }] }
+        ,
+        { type: "select", key: "price_id", name: "Loại khách hàng", value: 0,  options: [{ name: "<<Tất cả>>", value: 0 }] }
+        ,
+        { type: "text", key: "cust_id", disabled: false, name: "Mã khách hàng", input_type: "text", icon: "contact" }
+        ,
+        { 
+          type: "button"
+          , options: [
+            { name: "Bỏ qua", next: "CLOSE"}
+            ,{ name: "Tạo trang in", next: "CALLBACK"}
+        ]
+        }
+      ]
     }
+
+    let staffs = await this.pubService.getDynamicForm(ApiStorageService.resourceServer+"/db/json-parameters"
+                                                              +"?token="+this.apiStorageService.getToken()
+                                                              +"&type=4");
+    let prices = await this.pubService.getDynamicForm(ApiStorageService.resourceServer+"/db/json-parameters"
+                                                            +"?token="+this.apiStorageService.getToken()
+                                                            +"&type=5");
+    let areas = await this.pubService.getDynamicForm(ApiStorageService.resourceServer+"/db/json-parameters"
+                                                            +"?token="+this.apiStorageService.getToken()
+                                                            +"&type=6");
+
+    areas.forEach(el => {
+      data.items.find(x=>x.key==="area_id")
+      .options.push(
+        { name: el.description, value: parseInt(el.code)}
+        )
+    });
+
+    staffs.forEach(el => {
+      data.items.find(x=>x.key==="staff_id")
+      .options.push(
+        { name: el.description, value: parseInt(el.code)}
+        )
+    });
+
+    prices.forEach(el => {
+      data.items.find(x=>x.key==="price_id")
+      .options.push(
+        { name: el.description, value: parseInt(el.code)}
+        )
+    });
+    
+    this.navCtrl.push(DynamicFormWebPage
+      , {
+        parent: this,
+        callback: this.callbackPrintSelect,
+        form: data
+      });
+    
 }
 
 

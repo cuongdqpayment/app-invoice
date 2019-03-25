@@ -13,23 +13,23 @@ export class DynamicFormMobilePage {
   dynamicForm: any = {
     title: "Đăng ký"
     , items: [
-      {        name: "Thông tin cá nhân avatar", hint: "Avatar", type: "avatar", url: "https://www.w3schools.com/howto/img_forest.jpg" }
-      , { id: 1, name: "Check hay không chọn?", type: "check", value: true }
-      , { id: 2, name: "Thanh Trượt", type: "range", icon:"contrast", value: 50, min: 0, max: 100 }
-      , { id: 3, name: "Chọn hay không chọn Toggle?", icon: "plane", type: "toggle" }
-      , { id: 4, name: "Chọn radio cái nào", type: "radio", icon: "plane", value: 2, options: [{ name: "Tùy chọn 1", value: 1 }, { name: "Tùy chọn 2", value: 2 }] }
-      , { id: 5, name: "Chọn 1 cái nào", type: "select", value: 2, options: [{ name: "Tùy chọn 1", value: 1 }, { name: "Tùy chọn 2", value: 2 }] }
-      , { id: 6, name: "Chọn nhiều cái nào", type: "select_multiple", value: 2, options: [{ name: "Tùy chọn 1", value: 1 }, { name: "Tùy chọn 2", value: 2 }] }
-      , {        name: "Ảnh cá nhân", hint: "image viewer", type: "image", url: "https://www.w3schools.com/howto/img_forest.jpg" }
-      , { key: "username", name: "username", hint: "Số điện thoại di động 9 số bỏ số 0 ở đầu", type: "text", input_type: "userName", icon: "information-circle", validators: [{ required: true, min: 9, max: 9, pattern: "^[0-9]*$" }]}
-      , { key: "password", name: "password", hint: "Mật khẩu phải có chữ hoa, chữ thường, ký tự đặc biệt, số", type: "password", input_type: "password", icon: "information-circle", validators: [{ required: true, min: 6, max: 20}]}
-      , { id: 10, name: "Họ và tên", type: "text", input_type: "text", icon: "person" }
-      , { id: 11, name: "Điện thoại", hint: "Yêu cầu định dạng số điện thoại nhé", type: "text", input_type: "tel", icon: "call", validators: [{ pattern: "^[0-9]*$" }]}
-      , { id: 12, name: "email", hint: "Yêu cầu định dạng email nhé", type: "text", input_type: "email", icon: "mail", validators: [{ pattern: "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" }]}
-      , { id: 13, name: "Ngày bắt đầu", hint: "Chọn ngày", type: "datetime", display:"DD/MM/YYYY", picker:"DD MM YYYY"}
-      , { id: 14, name: "Thời gian bắt đầu", hint: "Chọn thời gian", type: "datetime", display:"HH:mm:ss", picker:"HH:mm:ss"}
-      , { id: 15, name: "Nội dung nhập", hint: "Nhập nhiều dòng", type: "text_area"}
-      , {          name: "Thông tin cá nhân", type: "title"}
+      {   type: "avatar",         name: "Thông tin cá nhân avatar", hint: "Avatar", url: "https://www.w3schools.com/howto/img_forest.jpg" }
+      , { type: "title",          name: "Tiêu đề form"}
+      , { type: "check", key: "check_ok", name: "Check hay không chọn?", value: true }
+      , { type: "range", key: "range_number", name: "Thanh Trượt", icon:"contrast", value: 50, min: 0, max: 100 }
+      , { type: "toggle", key: "check_toggle", name: "Chọn hay không chọn Toggle?", icon: "plane" }
+      , { type: "radio", key: "select_radio", name: "Chọn radio cái nào", icon: "plane", value: 2, options: [{ name: "Tùy chọn 1", value: 1 }, { name: "Tùy chọn 2", value: 2 }] }
+      , { type: "select", key: "select_1", name: "Chọn 1 cái nào", value: 2, options: [{ name: "Tùy chọn 1", value: 1 }, { name: "Tùy chọn 2", value: 2 }] }
+      , { type: "select_multiple", key: "select_n", name: "Chọn nhiều cái nào", value: 2, options: [{ name: "Tùy chọn 1", value: 1 }, { name: "Tùy chọn 2", value: 2 }] }
+      , { type: "image",  name: "Ảnh cá nhân", hint: "image viewer", url: "https://www.w3schools.com/howto/img_forest.jpg" }
+      , { type: "text", key: "username", disabled: true, name: "username", hint: "Số điện thoại di động 9 số bỏ số 0 ở đầu", input_type: "userName", icon: "information-circle", validators: [{ required: true, min: 9, max: 9, pattern: "^[0-9]*$" }]}
+      , { type: "password", key: "password", name: "password", hint: "Mật khẩu phải có chữ hoa, chữ thường, ký tự đặc biệt, số", input_type: "password", icon: "information-circle", validators: [{ required: true, min: 6, max: 20}]}
+      , { type: "text", key: "name", name: "Họ và tên", input_type: "text", icon: "person" }
+      , { type: "text", key: "phone", name: "Điện thoại", hint: "Yêu cầu định dạng số điện thoại nhé", input_type: "tel", icon: "call", validators: [{ pattern: "^[0-9]*$" }]}
+      , { type: "text", key: "email", name: "email", hint: "Yêu cầu định dạng email nhé", input_type: "email", icon: "mail", validators: [{ pattern: "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" }]}
+      , { type: "datetime", key: "start_date", name: "Ngày bắt đầu", hint: "Chọn ngày", display:"DD/MM/YYYY", picker:"DD MM YYYY"}
+      , { type: "datetime", key: "start_time", name: "Thời gian bắt đầu", hint: "Chọn thời gian", display:"HH:mm:ss", picker:"HH:mm:ss"}
+      , { type: "text_area", key: "text_area", name: "Nội dung nhập", hint: "Nhập nhiều dòng"}
       , { type:"details",
           details: [
               {
