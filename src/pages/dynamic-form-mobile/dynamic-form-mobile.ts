@@ -12,6 +12,9 @@ export class DynamicFormMobilePage {
 
   dynamicForm: any = {
     title: "Đăng ký"
+    , buttons: [
+      {color:"danger", icon:"close", next:"CLOSE"} 
+    ]
     , items: [
       {   type: "avatar",         name: "Thông tin cá nhân avatar", hint: "Avatar", url: "https://www.w3schools.com/howto/img_forest.jpg" }
       , { type: "title",          name: "Tiêu đề form"}
@@ -118,6 +121,14 @@ export class DynamicFormMobilePage {
   togglePasswordMode() {
     this.eye = this.eye === 'eye' ? 'eye-off' : 'eye';
     this.password_type = this.password_type === 'text' ? 'password' : 'text';
+  }
+
+  onClickHeader(btn){
+    btn.next_data = {
+      step: this.step,
+      button: btn
+    }
+    this.next(btn);
   }
 
   // Xử lý sự kiện click button theo id

@@ -14,6 +14,8 @@ import { HomeSpeedtestPage } from '../pages/home-speedtest/home-speedtest';
 import { HomeMenuPage } from '../pages/home-menu/home-menu';
 import { TimeAgoPipe} from 'time-ago-pipe';
 
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+
 import { ApiSpeedTestService } from '../services/apiSpeedTestService';
 import { ApiAuthService } from '../services/apiAuthService';
 import { ApiImageService } from '../services/apiImageService';
@@ -50,6 +52,7 @@ import { LinkPage } from '../pages/link/link';
 import { SafePipe } from '../pipes/safe-pipe';
 import { InvoicePage } from '../pages/invoice/invoice';
 import { CustomerPage } from '../pages/customer/customer';
+import { QrBarScannerPage } from '../pages/qr-bar-scanner/qr-bar-scanner';
 
 
 @NgModule({
@@ -57,6 +60,7 @@ import { CustomerPage } from '../pages/customer/customer';
     MyApp,
     TreeView,
     LoginPage,
+    QrBarScannerPage,
     InvoicePage,
     CustomerPage,
     LinkPage,
@@ -93,6 +97,7 @@ import { CustomerPage } from '../pages/customer/customer';
     MyApp,
     TreeView,
     LoginPage,
+    QrBarScannerPage,
     InvoicePage,
     CustomerPage,
     LinkPage,
@@ -121,6 +126,7 @@ import { CustomerPage } from '../pages/customer/customer';
     Geolocation,
     SQLite,
     InAppBrowser,
+    BarcodeScanner,
     ApiGraphService,
     ApiImageService,
     ApiAuthService,

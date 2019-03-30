@@ -5,7 +5,7 @@
 ionic cordova plugin save
 ionic cordova platform remove ios
 ionic cordova platform add ios --save
-ionic cordova build ios --prod --release
+#ionic cordova build ios --prod --release
 
 #Open xcode select <project_name>.xcodeproj 
 #File --> Project settings --> Build system = Legacy Build System
@@ -18,7 +18,7 @@ ionic cordova build ios --prod --release
 #ionic cordova run ios -c
 
 # Cach 3: Build tranh loi xay ra o cach 2
-ionic cordova build ios -- --buildFlag="-UseModernBuildSystem=0"
+#ionic cordova build ios -- --buildFlag="-UseModernBuildSystem=0"
 ionic cordova run ios -- --buildFlag="-UseModernBuildSystem=0"
 
 

@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{(codeType==='BAR'?'Bar code Scanner':'Qr code Scanner')}}
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only color="danger" (click)="onClickClose()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="background-card grid-border" text-center col-12 offset-xl-3 col-xl-6 offset-lg-3 col-lg-6
+        offset-md-3 col-md-6 offset-sm-2 col-sm-8>
+        
+        <button ion-button full color="primary" (click)="onClickScan()">
+          <ion-icon name="qr-scanner"></ion-icon>
+           Start Scan
+        </button>
+
+        <ion-card *ngIf="scannedData">
+          <ion-card-content>
+            <ion-title>Result of Scanner:</ion-title>
+            <p> {{ scannedData }} </p>
+            <p> {{ scannedData_text }} </p>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

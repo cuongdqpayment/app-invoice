@@ -1,0 +1,15 @@
+page-qr-bar-scanner {
+    .background-card {
+        background-color: #f3f3f3;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    .grid-border{
+        border-radius: 0.5em;
+        border: solid 0.1em #FFFFFF;
+    }
+
+    .qr-code-canvas{
+        width: 300px;
+        height: 300px;
+    }
+}

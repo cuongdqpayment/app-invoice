@@ -12,7 +12,6 @@ import { Socket, SocketIoConfig } from 'ng-socket-io';
 import { Observable } from 'rxjs/Observable';
 import { ApiImageService } from '../services/apiImageService';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { LinkPage } from '../pages/link/link';
 import { InvoicePage } from '../pages/invoice/invoice';
 import { CustomerPage } from '../pages/customer/customer';
 
