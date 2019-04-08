@@ -13,8 +13,7 @@ export class QrBarScannerPage {
   codeType:any;
   isShowValue:boolean= false;
 
-  scannedData: any;
-  scannedData_text: string;
+  scannedData: any = {};
 
   constructor(
     private scanner: BarcodeScanner
@@ -42,8 +41,7 @@ export class QrBarScannerPage {
 
     this.scanner.scan()
       .then(data => {
-        this.scannedData = JSON.stringify(data) ;
-        this.scannedData_text = data.text;
+        this.scannedData = data;
       })
       .catch(err => {
         console.log('err', err);

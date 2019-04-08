@@ -5,7 +5,7 @@ import { ApiStorageService } from './apiStorageService';
 
 import { RequestInterceptor } from '../interceptors/requestInterceptor';
 
-import 'rxjs/add/operator/map'
+/* import 'rxjs/add/operator/map' */
 
 import NodeRSA from 'node-rsa';
 import jwt from 'jsonwebtoken';
@@ -22,12 +22,56 @@ export class ApiAuthService {
     public userSetting: any;
     public userInfo: any;
 
-
     constructor(private httpClient: HttpClient,
                 private apiStorageService: ApiStorageService,
                 private reqInterceptor: RequestInterceptor) {
-        //key nay de test thu noi bo
-        this.midleKey.importKey(this.clientKey.exportKey('public'));
+    }
+
+    /**
+     * Neu da luu tru trong may roi thi lay ra
+     * cap khoa nay duoc tao ra cho ung dung nay
+     * su dung de ky thong tin chuyen di (ky nhan tu may nay)
+     * 
+     */
+    generatorKeyPairDevice(){
+        let deviceKey;
+        deviceKey = this.apiStorageService.getDeviceKey();
+        if (deviceKey) return deviceKey;
+        const key = new NodeRSA({b: 512}, { signingScheme: 'pkcs1-sha256' });
+        const publicKey = key.exportKey("public").replace('-----BEGIN PUBLIC KEY-----\n','').replace('-----END PUBLIC KEY-----','').replace(/[\n\r]/g, '');
+        const privateKey = key.exportKey("private").replace('-----BEGIN RSA PRIVATE KEY-----\n','').replace('-----END RSA PRIVATE KEY-----','').replace(/[\n\r]/g, '');
+        deviceKey = {id: publicKey, key: privateKey}
+        this.apiStorageService.saveDeviceKey(deviceKey);
+        return deviceKey;
+    }
+
+    /**
+     * id = public key, key = private key
+     * tra ve rsaKey dung cho sign, verify, encrypted, decrypted
+     * @param keySave 
+     * @param keyType 
+     */
+    importKey(keySave:{id:string,key:string},keyType:'public'|'private'){
+        const rsaKey = new NodeRSA(null, { signingScheme: 'pkcs1-sha256' });
+        if (keyType==='private'){
+            rsaKey.importKey('-----BEGIN RSA PRIVATE KEY-----\n'+keySave.key+'\n-----END RSA PRIVATE KEY-----');
+        }else{
+            rsaKey.importKey('-----BEGIN PUBLIC KEY-----\n'+keySave.id+'\n-----END PUBLIC KEY-----');
+        }
+        return rsaKey;
+    }
+
+    generatorKeyPairUser(user){
+        if (!user) return null;
+        let userKey;
+        userKey = this.apiStorageService.getUserKey(user);
+        if (userKey) return userKey;
+        const key = new NodeRSA({b: 512}, { signingScheme: 'pkcs1-sha256' });
+        const publicKey = key.exportKey("public").replace('-----BEGIN PUBLIC KEY-----\n','').replace('-----END PUBLIC KEY-----','').replace(/[\n\r]/g, '');
+        const privateKey = key.exportKey("private").replace('-----BEGIN RSA PRIVATE KEY-----\n','').replace('-----END RSA PRIVATE KEY-----','').replace(/[\n\r]/g, '');
+        userKey = {id: publicKey, key: privateKey}
+        this.apiStorageService.saveUserKey(user,userKey);
+        return userKey;
     }
 
     /**
@@ -39,27 +83,22 @@ export class ApiAuthService {
         if (this.publicKey && this.publicKey.public_key) {
             //console.log('Public key from in session');
             return (new Promise((resolve, reject) => {
-                try {
-                    this.serverKey.importKey(this.publicKey.public_key);
-                } catch (err) {
-                    reject(err); //bao loi khong import key duoc
-                }
+                this.serverKey = this.importKey({id:this.publicKey.public_key,
+                                                 key:""},"public");
+
                 resolve(this.serverKey);
             }));
             
         } else {
             //console.log('get Public key from server');
-            return this.httpClient.get(this.authenticationServer + '/key-json')
+            return this.httpClient.get(this.authenticationServer + '/ext-auth/key-json')
             .toPromise()
             .then(jsonData => {
                 this.publicKey = jsonData;
                     //console.log('Public key: ', jsonData);
                     if (this.publicKey && this.publicKey.public_key) {
-                        try {
-                            this.serverKey.importKey(this.publicKey.public_key);
-                        } catch (err) {
-                            throw err;
-                        }
+                        this.serverKey = this.importKey({id:this.publicKey.public_key,
+                            key:""},"public");
                         return this.serverKey;
                     } else {
                         throw new Error('No public_key exists!');
@@ -71,7 +110,7 @@ export class ApiAuthService {
 
     login(formData) {
         this.reqInterceptor.setRequestToken(null); //login nguoi khac
-        return this.httpClient.post(this.authenticationServer + '/login', formData)
+        return this.httpClient.post(this.authenticationServer + '/ext-auth/login', formData)
             .toPromise()
             .then(data => {
                 this.userToken = data;
@@ -88,7 +127,7 @@ export class ApiAuthService {
         if (this.userToken && this.userToken.token) {
                 //truong hop user co luu tren session thi xoa session di
             this.reqInterceptor.setRequestToken(this.userToken.token); //login nguoi khac
-            return this.httpClient.get(this.authenticationServer + '/logout')
+            return this.httpClient.get(this.authenticationServer + '/ext-auth/logout')
                 .toPromise()
                 .then(data => {
                     //console.log(data);
@@ -112,7 +151,7 @@ export class ApiAuthService {
     }
 
     register(formData) {
-        return this.httpClient.post(this.authenticationServer + '/register', formData)
+        return this.httpClient.post(this.authenticationServer + '/ext-auth/register', formData)
             .toPromise()
             .then(data => {
                 console.log(data);
@@ -128,7 +167,7 @@ export class ApiAuthService {
     editUser(formData) {
         //them token vao truoc khi edit
         this.reqInterceptor.setRequestToken(this.userToken.token);
-        return this.httpClient.post(this.authenticationServer + '/edit', formData)
+        return this.httpClient.post(this.authenticationServer + '/ext-auth/edit', formData)
             .toPromise()
             .then(data => {
                 console.log(data);
@@ -145,7 +184,7 @@ export class ApiAuthService {
         if (this.userToken && this.userToken.token) {
             //them token vao truoc khi edit
             this.reqInterceptor.setRequestToken(this.userToken.token);
-            return this.httpClient.get(this.authenticationServer + '/get-user')
+            return this.httpClient.get(this.authenticationServer + '/ext-auth/get-user')
                 .toPromise()
                 .then(jsonData => {
                     this.userSetting = jsonData;
@@ -161,58 +200,8 @@ export class ApiAuthService {
     
     //get userInfo from token
     getUserInfo() {
-        //this.userInfo=null;
-        try {
-            this.userInfo = jwt.decode(this.userToken.token);
-            //console.log(this.userInfo);
-            //chuyen doi duong dan image de truy cap anh dai dien
-            if (this.userInfo.image
-                &&
-                this.userInfo.image.toLowerCase()
-                &&
-                this.userInfo.image.toLowerCase().indexOf('http://') < 0
-                &&
-                this.userInfo.image.toLowerCase().indexOf('https://') < 0) {
-                //chuyen doi duong dan lay tai nguyen tai he thong
-                this.userInfo.image = this.authenticationServer
-                    + '/get-avatar/'
-                    + this.userInfo.image
-                    + '?token=' + this.userToken.token;
-                //console.log(this.userInfo.image);
-            }
-        } catch (err) {
-            this.userInfo = null;
-        }
         return this.userInfo;
     }
-
-    getUserInfoSetting() {
-        if (this.userSetting.URL_IMAGE
-            &&
-            this.userSetting.URL_IMAGE.toLowerCase()
-            &&
-            this.userSetting.URL_IMAGE.toLowerCase().indexOf('http://') < 0
-            &&
-            this.userSetting.URL_IMAGE.toLowerCase().indexOf('https://') < 0) {
-            //chuyen doi duong dan lay tai nguyen tai he thong
-            this.userSetting.URL_IMAGE = this.authenticationServer
-                + '/get-avatar/'
-                + this.userSetting.URL_IMAGE
-                + '?token=' + this.userToken.token;
-            //console.log(this.userSetting.URL_IMAGE);
-        }
-        return this.userSetting;
-    }
-
-    /**
-     * Thiet lap token tu local xem nhu da login
-     * @param token 
-     */
-    /* pushToken(token){
-        //gan token cho user de xem nhu da login
-        this.userToken={token:token};
-    } */
-
 
     /**
      * Ham nay luu lai token cho phien lam viec sau do
@@ -239,22 +228,23 @@ export class ApiAuthService {
      * @param token 
      */
     authorize(token){
-        return this.httpClient.post(this.authenticationServer + '/authorize-token',JSON.stringify({
+        return this.httpClient.post(this.authenticationServer + '/ext-auth/authorize-token',JSON.stringify({
             token: token
         }))
             .toPromise()
             .then(data => {
-                this.userToken={token:token};
                 let rtn:any;
-                    rtn = data;
-                    return rtn; 
+                rtn = data;
+                this.userToken={token: token};
+                this.userInfo = rtn.user_info;
+                return rtn; 
             })
     }
 
 
     //send sms
     sendSMS(isdn,sms){
-       return this.httpClient.post(this.authenticationServer + '/send-sms', JSON.stringify({
+       return this.httpClient.post(this.authenticationServer + '/ext-auth/send-sms', JSON.stringify({
             isdn:isdn,
             sms:sms
             }))
@@ -272,7 +262,7 @@ export class ApiAuthService {
      */
     requestIsdn(jsonString){
         //chuyen len bang form co ma hoa
-        return this.httpClient.post(this.authenticationServer + '/request-isdn', jsonString)
+        return this.httpClient.post(this.authenticationServer + '/ext-auth/request-isdn', jsonString)
              .toPromise()
              .then(data => {
                 let rtn:any;
@@ -288,7 +278,7 @@ export class ApiAuthService {
       */
     confirmKey(jsonString){
          //chuyen di bang form co ma hoa
-        return this.httpClient.post(this.authenticationServer + '/confirm-key', jsonString)
+        return this.httpClient.post(this.authenticationServer + '/ext-auth/confirm-key', jsonString)
              .toPromise()
              .then(data => {
                  this.userToken = data;
@@ -300,18 +290,6 @@ export class ApiAuthService {
                     throw 'Không đúng máy chủ<br>';
                 }
              });
-     }
-
-     sendUserInfo(jsonString){
-         //gui token + userInfo (pass encrypted) --ghi vao csdl
-         //tra ket qua cho user
-         return true;
-     }
-
-     sendImageBase64(jsonString){
-         //gui token + userInfo (pass encrypted) --ghi vao csdl
-         //tra ket qua cho user
-         return true;
      }
 
 

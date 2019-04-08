@@ -66,14 +66,14 @@ Su dung:
 # cai dat QR-BAR-CODE-SCANNER - danh cho app - cordova
 #BAR & QR
 ionic cordova plugin add phonegap-plugin-barcodescanner
-npm install @ionic-native/barcode-scanner
+npm install @ionic-native/barcode-scanner@^4.5.3
 
 ionic cordova plugin add cordova-plugin-camera
 npm install @ionic-native/camera
 
 
-Khai trong provider va trang scan
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+Khai trong provider va trang scan version "^4.5.3" moi chay duoc
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 constructor(private barcodeScanner: BarcodeScanner) { }
 
