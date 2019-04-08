@@ -297,7 +297,7 @@ export class SpeedTestPage {
     const delay = 500;
     var nextIndex = 0;
     
-    this.apiLocation.initPosition()
+    this.apiLocation.getCurrentLocation()
       .then(data => {
         if (!this.result) this.result = {}; else this.result = this.results.shift();
         let dt = new Date();
@@ -404,7 +404,7 @@ export class SpeedTestPage {
   //gui ket qua cho may chu
   shareResult() {
     //lay vi tri ket thuc chu trinh de ghi lai vi tri ket thuc test
-    this.apiLocation.initPosition()
+    this.apiLocation.getCurrentLocation()
       .then(pos => {
         if (this.result) {
           this.result = this.results.shift();

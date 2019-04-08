@@ -60,12 +60,13 @@ export class DynamicFormMobilePage {
           { name: "Reset", next: "RESET" }
           , { name: "Exit", next: "EXIT" }
           , { name: "Close", next: "CLOSE" }
-          , { name: "Back", next: "BACK"}
+          , { name: "Back", next: "CALLBACK"}
           , { name: "Continue", next: "CONTINUE"}
-          , { name: "Register", next: "BACK", url: "https://chonsoc3.mobifone.vn/ionic/", command: "USER_LOGIN_REDIRECT" }
-          , { name: "LOGIN", next: "CONTINUE" , url: "https://chonsoc3.mobifone.vn/ionic/", command: "USER_CHECK_EXISTS", token: true }
+          , { name: "Register", next: "CALLBACK", url: "https://chonsoc3.mobifone.vn/ionic/", command: "USER_LOGIN_REDIRECT" }
+          , { name: "LOGIN", next: "NEXT" , url: "https://chonsoc3.mobifone.vn/ionic/", command: "USER_CHECK_EXISTS", token: true }
         ]
-      }]
+      }
+    ]
 };
   initValues = [];
   callback: any; // ham goi lai khai bao o trang root gui (neu co)

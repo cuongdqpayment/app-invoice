@@ -149,7 +149,7 @@
 						<ion-row>
 							<ion-col *ngFor="let myBtn of it.options" style="text-align: center;">
 								<button class="button-item" [(ngStyle)]="pageContent" ion-button round (click)="onClick(myBtn)">
-									{{myBtn.name}}
+									{{myBtn?.name}}
 								</button>
 							</ion-col>
 						</ion-row>

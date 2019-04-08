@@ -137,8 +137,8 @@ export class GoogleMapPage {
     {
       side:"right",
       actions: [
-        {color:"secondary", icon:"share-alt", url: ApiStorageService.mapServer + "/share-point", next:"SHARE"}
-        ,{color:"danger", icon:"send", url: ApiStorageService.mapServer + "/live-user", next:"LIVE"}
+        {color:"secondary", icon:"share-alt", url: ApiStorageService.authenticationServer + "/location/share-point", next:"SHARE"}
+        ,{color:"danger", icon:"send", url: ApiStorageService.authenticationServer + "/location/live-user", next:"LIVE"}
         ,{color:"light", icon:"archive", next:"SAVE"}
       ]
     }

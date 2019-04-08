@@ -15,6 +15,10 @@ import { HomeMenuPage } from '../pages/home-menu/home-menu';
 import { TimeAgoPipe} from 'time-ago-pipe';
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Contacts } from '@ionic-native/contacts';
+import { Device } from '@ionic-native/device';
+import { Sim } from '@ionic-native/sim';
+import { Network } from '@ionic-native/network';
 
 import { ApiSpeedTestService } from '../services/apiSpeedTestService';
 import { ApiAuthService } from '../services/apiAuthService';
@@ -53,6 +57,7 @@ import { SafePipe } from '../pipes/safe-pipe';
 import { InvoicePage } from '../pages/invoice/invoice';
 import { CustomerPage } from '../pages/customer/customer';
 import { QrBarScannerPage } from '../pages/qr-bar-scanner/qr-bar-scanner';
+
 
 
 @NgModule({
@@ -124,6 +129,10 @@ import { QrBarScannerPage } from '../pages/qr-bar-scanner/qr-bar-scanner';
     StatusBar,
     SplashScreen,
     Geolocation,
+    Contacts,
+    Device,
+    Sim,
+    Network,
     SQLite,
     InAppBrowser,
     BarcodeScanner,
@@ -138,6 +147,7 @@ import { QrBarScannerPage } from '../pages/qr-bar-scanner/qr-bar-scanner';
     ApiResourceService,
     ApiLocationService,
     ApiMapService,
+
     RequestInterceptor,
     {
       provide: HTTP_INTERCEPTORS,

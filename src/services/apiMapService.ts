@@ -58,7 +58,7 @@ export class ApiMapService {
 
     getAddressFromLatlng(latlng: string) {
         //return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='
-        return this.httpClient.get(ApiStorageService.mapServer + '/json-point?latlng='
+        return this.httpClient.get(ApiStorageService.authenticationServer + '/location/json-point?latlng='
             + latlng
             + '&key=' + this.GOOGLE_API_KEY
             )
@@ -69,7 +69,7 @@ export class ApiMapService {
 
     getLatlngFromAddress(address: string) {
         //return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address='
-        return this.httpClient.get(ApiStorageService.mapServer + '/json-point?address='
+        return this.httpClient.get(ApiStorageService.authenticationServer + '/location/json-point?address='
             + address
             + '&key=' + this.GOOGLE_API_KEY
             )
@@ -80,7 +80,7 @@ export class ApiMapService {
     
     getRouteApi(startPoint: string, endPoint: string) {
         return this.httpClient.get(
-            ApiStorageService.mapServer + '/json-route?origin=' + startPoint
+            ApiStorageService.authenticationServer + '/location/json-route?origin=' + startPoint
             + '&destination=' + endPoint
             //+ '&key=' + this.GOOGLE_API_KEY
             )
